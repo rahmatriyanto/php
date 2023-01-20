@@ -1,0 +1,6 @@
+Perform a soft delete on duplicate rows in MySQL:
+
+CREATE TEMPORARY TABLE t_barang_tmp AS (SELECT SKU FROM t_barang GROUP BY sku HAVING COUNT(*) > 1);
+UPDATE t_barang
+INNER JOIN t_barang_tmp ON t_barang.sku = t_barang_tmp.sku 
+SET t_barang.hapus = '1';
